@@ -84,8 +84,9 @@ function [] = Drex()
 % The pole figures are saved using the export_fig toolbox. A version of this
 % toolbox is included.
 
-% V 0.4c. 4-7-15 CJT. First Working Version.
-close all; clear all; clc
+% V 0.4c. 4-17-15 CJT. First Working Version.
+version = '0.4c';
+% close all; clear all; clc
 
 % Dependencies: contourpolefigures.m V1.0
 addpath('Contour/');
@@ -93,7 +94,6 @@ addpath('export_fig/');
 addpath('dispstat/');
 addpath('colormaps/');
 addpath('functions/');
-version = '0.4c';
 
 % keyboard
 %% User Controlled Input Parameters
@@ -103,8 +103,8 @@ version = '0.4c';
 Grain.nGrains   = 500;              % number of olivine crystals
 Grain.pctOli    = 1;                % fraction of aggregate that is olivine
 Grain.tau       = [1,2,3,1e60];     % CRSS (relative) for slip systems
-Grain.mob       = 125;              % grain mobility parameter (125 is recommended by Kaminski et al 2004)
-Grain.chi       = 0;                % 0.3 threshold volume fraction for activation of grain boundary sliding (Kaminski et al, 2004)
+Grain.mob       = 50;              % grain mobility parameter (125 is recommended by Kaminski et al 2004)
+Grain.chi       = 0.2;                % 0.3 threshold volume fraction for activation of grain boundary sliding (Kaminski et al, 2004)
 Grain.lambda    = 5;                % 5 nucleation parameter
 Grain.stressExp = 3.5;              % stress exponent
 
@@ -112,7 +112,7 @@ Grain.stressExp = 3.5;              % stress exponent
 % Flow input parameters
 %%%%%%%%%%%%%%%%%%%%%%%%
 Flow.tSteps = 10;
-Flow.deformationSymmetry = 'axisymmetricCompression';
+Flow.deformationSymmetry = 'axisymmetricExtension';
 
 % Various olivine "types" may simulated by changing the Grain.tau variable
 % to the appropriate relative critical resolved shear stress:
@@ -127,8 +127,12 @@ Flow.deformationSymmetry = 'axisymmetricCompression';
 % laboratory studies. Annu. Rev. Earth Planet. Sci., 36, 59-95.
 
 % Flow.deformationSymmetry must be set to one of the following strings:
-% axisymmetricCompression, axisymmetricExtension, orthorhombic, 
-% simpleShear, triclinic, or noDeformation
+% axisymmetricCompression, 
+% axisymmetricExtension, 
+% orthorhombic, 
+% simpleShear, 
+% triclinicShear, 
+% noDeformation
 %% Check Grain and Flow parameters
 validateattributes(Grain,          {'struct'},{});
 validateattributes(Grain.nGrains,  {'numeric'},{'scalar','integer','nonnegative'});
@@ -223,21 +227,20 @@ switch Flow.deformationSymmetry
         % generate uniform random distribution of euler angles
         [eulerAngles] = generaterandomLPO(Grain);
             
-        fileName = ['drex_',deformationSymmetry,'.txt'];
+        fileName = ['Output/drex_',Flow.deformationSymmetry,'.txt'];
         fid = fopen(fileName,'w');
         for i = 1:Grain.nGrains
             fprintf(fid,'%f %f %f\n', eulerAngles(i,:)*180/pi);
         end
         fclose(fid);         
         
-        fileName = ['Output/drex_',deformationSymmetry,'_info.txt'];
+        fileName = ['Output/drex_',Flow.deformationSymmetry,'_info.txt'];
         fid = fopen(fileName,'w');
         fprintf(fid,'DREX Olivine Simulation, Version %3.2f\n',version);
         fprintf(fid,'Model and Analytic Finite-strain Solutions\n');
         fprintf(fid,'**************************\n');
         fprintf(fid,'no deformation');
         fclose(fid);
-         
         return
                
     otherwise
@@ -509,7 +512,7 @@ fileName = ['Output/drex_',Flow.deformationSymmetry,'_volweighted'];
 
 if exist('export_fig','file') == 2
     % save figure
-    export_fig(fileName,'-png');
+    export_fig(fileName,'-png','-transparent');
 else
     % do nothing
 end

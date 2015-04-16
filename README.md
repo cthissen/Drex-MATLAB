@@ -71,20 +71,22 @@
  The code also outputs a figure containing pole figures for the
  [100],[010], and [001] axes. The default coordinate frame for the pole
  figures is defined as follows:
-                 
-\\                %%%     %%%
-\\          %%%              %%%
-\\     
-\\       %%%                      %%%
-\\     
-\\      %%%                         %%%
-\\     %              +Z             +X % 
-\\      %%%                         %%%
-\\     
-\\      %%%                        %%%
-\\      
-\\         %%%                  %%%
-\\         
-\\               %%%  +Y  %%%
+
+<pre>                 
+                %%%     %%%
+           %%%              %%%
+     
+       %%%                      %%%
+     
+      %%%                         %%%
+     %              +Z             +X % 
+      %%%                         %%%
+     
+      %%%                        %%%
+      
+         %%%                  %%%
+         
+               %%%  +Y  %%%
+</pre>               
  The pole figures are saved using the export_fig toolbox. A version of this
  toolbox is included.

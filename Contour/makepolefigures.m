@@ -52,11 +52,12 @@ switch mineral
         leftPos = idx*subaxesSpacing + (idx-1)*subaxesWidth;
         hSub(idx).Position = [leftPos,topRow,subaxesWidth,1];
 %         h=pcolor(X,Y,mask.*CrystalDirections(idx).counts); shading interp
-        h = imagesc(unique(X(:)),unique(Y(:)),CrystalDirections(idx).counts.*mask);
+%         h = imagesc(unique(X(:)),unique(Y(:)),CrystalDirections(idx).counts.*mask);
+        h = gcolor(X,Y,CrystalDirections(idx).counts.*mask); shading flat
         hold on
-        contour(unique(X(:)),unique(Y(:)),CrystalDirections(idx).counts.*mask,[2,2],'Color',[0.5,0.5,0.5],'LineWidth',2);
-        
-        set(gca,'YDir','normal');
+        contour(X,Y,CrystalDirections(idx).counts.*mask,[2,2],'Color',[0.5,0.5,0.5],'LineWidth',2);
+
+        set(gca,'YDir','normal', 'Color', 'none');
         set(h,'alphadata',~isnan(CrystalDirections(idx).counts.*mask));
             colormap(colorRamp1);
             hold on
@@ -94,14 +95,10 @@ switch mineral
     leftPos = 3*subaxesSpacing + 2*subaxesWidth;
     nData = CrystalDirections(1).nData;
     theta = CrystalDirections(1).parameter;
+  
     
-    stringFull = sprintf(['N = %i \nMethod: Kamb \nRSD=1/3 \nWindow = %04.2f%c \nEqual',...
-        ' Area Projection \nLower Hemisphere'],...
-        nData,theta*180/pi,char(176));
-    
-    stringLimited = sprintf(['N = %i \n%s',...
-        '\nMax: %03.2f'],...
-        nData,CrystalDirections(1).paramName,maxCounts);
+    stringLimited = sprintf(['N = %i \nMax: %03.2f'],...
+        nData,maxCounts);
     
     text(leftPos,0.15,stringLimited,'parent',hAxis,'FontSize',13)
 

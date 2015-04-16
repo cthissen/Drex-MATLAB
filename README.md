@@ -72,19 +72,19 @@
  [100],[010], and [001] axes. The default coordinate frame for the pole
  figures is defined as follows:
                  
-            ooo     ooo
-       ooo              ooo
- 
-   ooo                      ooo
- 
-  ooo                         ooo
- o              +Z             +X o 
-  ooo                         ooo
- 
-  ooo                        ooo
- 
-     ooo                  ooo
- 
-           ooo  +Y  ooo
+                %%%     %%%
+           %%%              %%%
+     
+       %%%                      %%%
+     
+      %%%                         %%%
+     %              +Z             +X % 
+      %%%                         %%%
+     
+      %%%                        %%%
+      
+         %%%                  %%%
+         
+               %%%  +Y  %%%
  The pole figures are saved using the export_fig toolbox. A version of this
  toolbox is included.

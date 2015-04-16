@@ -1,4 +1,4 @@
- Drex
+# Drex #
  
  4-17-15 Christopher Thissen, Yale University
  christopher.thissen@yale.edu
@@ -38,12 +38,13 @@
  USAGE
  
  INPUT: 
- The code does not require input arguments. The user specifies two types
- of parameters in the following sections. The first type of parameters
- relates to the olivine aggregate, such as the number of olivine crystals
- and the stress exponent. These parameters are defined in the next section
- as part of the "Grain" structure. Default values and alternative options
- are also discussed.
+ The code does not require input arguments and can be run by
+ calling the program the commandline or pushing the green "Run" button.
+ The user specifies two types of parameters in the following sections. The
+ first type of parameters relates to the olivine aggregate, such as the
+ number of olivine crystals and the stress exponent. These parameters are
+ defined in the next section as part of the "Grain" structure. Default
+ values and alternative options are also discussed.
  
  The second type of input parameter relates to the imposed deformation.
  The user may choose from among the pre-defined deformation gradient
@@ -71,19 +72,19 @@
  [100],[010], and [001] axes. The default coordinate frame for the pole
  figures is defined as follows:
                  
-            %%%     %%%
-       %%%              %%%
+            ooo     ooo
+       ooo              ooo
  
-   %%%                      %%%
+   ooo                      ooo
  
-  %%%                         %%%
- %              +Z             +X % 
-  %%%                         %%%
+  ooo                         ooo
+ o              +Z             +X o 
+  ooo                         ooo
  
-  %%%                        %%%
+  ooo                        ooo
  
-     %%%                  %%%
+     ooo                  ooo
  
-           %%%  +Y  %%%
+           ooo  +Y  ooo
  The pole figures are saved using the export_fig toolbox. A version of this
  toolbox is included.

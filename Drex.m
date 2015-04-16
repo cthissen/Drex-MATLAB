@@ -1,4 +1,4 @@
-function [] = DRex()
+function [] = Drex()
 % This code simulates the development of LPO textures in a deforming
 % olivine aggregate. This is a modified version of the popular fortran code
 % D-Rex, originally released by Ed Kaminski, Neil Ribe, and others. 
@@ -34,13 +34,13 @@ function [] = DRex()
 % %%%%%%%%%%%%%
 %     USAGE
 % %%%%%%%%%%%%%
-% INPUT: 
-% The code does not require input arguments. The user specifies two types
-% of parameters in the following sections. The first type of parameters
-% relates to the olivine aggregate, such as the number of olivine crystals
-% and the stress exponent. These parameters are defined in the next section
-% as part of the "Grain" structure. Default values and alternative options
-% are also discussed.
+% INPUT: The code does not require input arguments and can be run by
+% calling the program the commandline or pushing the green "Run" button.
+% The user specifies two types of parameters in the following sections. The
+% first type of parameters relates to the olivine aggregate, such as the
+% number of olivine crystals and the stress exponent. These parameters are
+% defined in the next section as part of the "Grain" structure. Default
+% values and alternative options are also discussed.
 % 
 % The second type of input parameter relates to the imposed deformation.
 % The user may choose from among the pre-defined deformation gradient

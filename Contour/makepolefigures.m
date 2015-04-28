@@ -51,9 +51,14 @@ switch mineral
         hSub(idx) = axes;
         leftPos = idx*subaxesSpacing + (idx-1)*subaxesWidth;
         hSub(idx).Position = [leftPos,topRow,subaxesWidth,1];
-%         h=pcolor(X,Y,mask.*CrystalDirections(idx).counts); shading interp
-%         h = imagesc(unique(X(:)),unique(Y(:)),CrystalDirections(idx).counts.*mask);
-        h = gcolor(X,Y,CrystalDirections(idx).counts.*mask); shading flat
+
+        if exist('padarray','builtin')
+            % use gcolor for slightly betterplotting
+            h = gcolor(X,Y,CrystalDirections(idx).counts.*mask); shading flat
+        else
+            % use pcolor to plot
+            h=pcolor(X,Y,mask.*CrystalDirections(idx).counts); shading interp
+        end
         hold on
         contour(X,Y,CrystalDirections(idx).counts.*mask,[2,2],'Color',[0.5,0.5,0.5],'LineWidth',2);
 

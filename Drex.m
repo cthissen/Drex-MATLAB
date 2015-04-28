@@ -111,7 +111,7 @@ Grain.stressExp = 3.5;              % stress exponent
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Flow input parameters
 %%%%%%%%%%%%%%%%%%%%%%%%
-Flow.tSteps = 10;
+Flow.tSteps = 1;
 Flow.deformationSymmetry = 'simpleShear';
 
 % Various olivine "types" may simulated by changing the Grain.tau variable

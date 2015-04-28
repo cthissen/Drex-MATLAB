@@ -14,7 +14,8 @@ function [] = Drex()
 % Other modifications include:
 % 1. The initially random LPO is now generated using a random stream, and
 % follows the method in Morawiec, A. (2003). Orientations and rotations.
-% Springer-Verlag.
+% Springer-Verlag. See this link for a straightforward explanation of
+% random streams, http://en.wikipedia.org/wiki/Halton_sequence
 % 2. The code warns the user when the rotation matrix used to update a
 % crystal orientation is not a proper rotation matrix. 
 % 3. An indexing error in the original fortran code related to the

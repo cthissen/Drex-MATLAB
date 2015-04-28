@@ -3,8 +3,7 @@ function [] = Drex()
 % olivine aggregate. This is a modified version of the popular fortran code
 % D-Rex, originally released by Ed Kaminski, Neil Ribe, and others. 
 % 
-% The code has been modified from the original fortran version. This
-% version of the code only tracks the development of crystal sizes and
+% The code has been modified from the original fortran version. The code only tracks the development of crystal sizes and
 % orientations. All path-line integration and seismic anistropy
 % calculations present in the original fortran version have been removed.
 % All calculations relating to enstatite have also been removed. The
@@ -16,8 +15,8 @@ function [] = Drex()
 % follows the method in Morawiec, A. (2003). Orientations and rotations.
 % Springer-Verlag. See this link for a straightforward explanation of
 % random streams, http://en.wikipedia.org/wiki/Halton_sequence
-% 2. The code warns the user when the rotation matrix used to update a
-% crystal orientation is not a proper rotation matrix. 
+% 2. A singular value decomposition is used to find the nearest rotation
+% matrix at each integration step.
 % 3. An indexing error in the original fortran code related to the
 % calculation of dislocation densities has be fixed. 
 % 
@@ -48,7 +47,7 @@ function [] = Drex()
 % tensors by setting the "deformationSymmetry" variable to one of the
 % following strings: axisymmetricCompression, axisymmetricExtension,
 % orthorhombic, simpleShear, triclinic, or noDeformation. Custom
-% deformation gradient tensors can also be added in the section labelled
+% deformation gradient tensors can also be added in the section labeled
 % "Define Deformation Gradient Tensor". The number of integration steps
 % must also be specified.
 % 
@@ -56,14 +55,15 @@ function [] = Drex()
 % The code outputs several text files and figures. Five text files are
 % created. The first is an info file that lists important parameters and
 % final finite strain results for the aggregtate. The second text file
-% lists the final orientations (ZXZ, Bunge convention, in radians),
-% and the volume fraction of each crystal. Three other text files are
-% also output that contain only euler angles. The unweighted file includes
-% a single measurement for all crystals that have volume fraction greater
-% than zero. This is akin to making a single measurement of each grain. The
-% volume weighted file includes repeated measurements for the same grain scaled by the final volume fraction. 
-% This is akin to making measurements on a predefined grid. The inverse
-% volume weighted file includes repreate measurements for each grain
+% lists the final orientations (ZXZ, Bunge convention, in radians), and the
+% volume fraction of each crystal. Three additional text files contain only
+% euler angles. The unweighted file includes a single measurement for all
+% crystals that have volume fraction greater than zero. This is akin to
+% making a single measurement of each grain. The volume weighted file
+% includes repeated measurements for the same grain scaled by the final
+% volume fraction. This is akin to making measurements on a predefined
+% grid. The inverse volume weighted file includes repeat measurements for
+% each grain.
 % 
 % The code also outputs a figure containing pole figures for the
 % [100],[010], and [001] axes. The default coordinate frame for the pole
@@ -86,6 +86,8 @@ function [] = Drex()
 % toolbox is included.
 
 % V 0.4c. 4-17-15 CJT. First Working Version.
+% Christopher Thissen, Yale University. christopher.thissen@yale.edu
+% with contributions from Mark Brandon, Yale University
 version = '0.4c';
 % close all; clear all; clc
 
@@ -112,7 +114,7 @@ Grain.stressExp = 3.5;              % stress exponent
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Flow input parameters
 %%%%%%%%%%%%%%%%%%%%%%%%
-Flow.tSteps = 1;
+Flow.tSteps = 100;
 Flow.deformationSymmetry = 'simpleShear';
 
 % Various olivine "types" may simulated by changing the Grain.tau variable
@@ -576,7 +578,7 @@ if exist('qrandstream','builtin')
     q = qrandstream('halton', 3, 'Skip',1e4, 'Leap',1e3);
     randVals = qrand(q,nGrains);
 else
-    warning(['Statistics toolbox is not installed.',...
+    fprintf(['Statistics toolbox is not installed.',...
         'Using default uniform random generator for initial texture']);
     randVals = rand(nGrains,3);
 end

@@ -48,6 +48,5 @@ Issues can also be reported online: https://github.com/cthissen/Drex-MATLAB/issu
 
 License
 ------------------ 
-
-
+See License file.
 

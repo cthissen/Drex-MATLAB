@@ -102,7 +102,7 @@ addpath('functions/');
 %%%%%%%%%%%%%%%%%%%%%%%%%
 Grain.nGrains   = 500;              % number of olivine crystals
 Grain.pctOli    = 1;                % fraction of aggregate that is olivine
-Grain.tau       = [3,2,1e60,1];     % CRSS (relative) for slip systems
+Grain.tau       = [1,2,3,1e60];     % CRSS (relative) for slip systems
 Grain.mob       = 50;              % grain mobility parameter (125 is recommended by Kaminski et al 2004)
 Grain.chi       = 0.2;                % 0.3 threshold volume fraction for activation of grain boundary sliding (Kaminski et al, 2004)
 Grain.lambda    = 5;                % 5 nucleation parameter
@@ -434,8 +434,13 @@ eulerAnglesSorted = LPO.Final.eulerAngles(idxVolFrac,:);
 cumWeight = cumsum(volFracSorted);
 
 %... generate random indices
-q = qrandstream('halton', 3, 'Skip',1e3, 'Leap',1e2);
-idxGrain = qrand(q,Grain.nGrains);
+% check for qrandstream (part of statistics toolbox)
+if exist('qrandstream','builtin');
+    q = qrandstream('halton', 3, 'Skip',1e3, 'Leap',1e2);
+    idxGrain = qrand(q,Grain.nGrains);
+else
+    idxGrain = rand(Grain.nGrains,3);
+end
 
 %... find correct eulerAngle and write to file
 fileName = ['Output/drex_',Flow.deformationSymmetry,'_volweighted.txt'];
@@ -566,10 +571,16 @@ validateattributes(Grain.nGrains,{'numeric'},{'scalar'});
 
 % updated to use quasi random stream.
 nGrains = Grain.nGrains;
-q = qrandstream('halton', 3, 'Skip',1e4, 'Leap',1e3);
+if exist('qrandstream','builtin')
+    q = qrandstream('halton', 3, 'Skip',1e4, 'Leap',1e3);
+    randVals = qrand(q,nGrains);
+else
+    warning(['Statistics toolbox is not installed.',...
+        'Using default uniform random generator for initial texture']);
+    randVals = rand(nGrains,3);
+end
 
 %... get random values
-randVals = qrand(q,nGrains);
 eulerAngles(:,1) = 2*pi*randVals(:,1);        
 eulerAngles(:,3) = 2*pi*randVals(:,2);       
 eulerAngles(:,2) = acos(2*randVals(:,3)-1);   
@@ -629,7 +640,19 @@ end
 
 varargout{1} = rotationMatrixWarningFlag;
 
-
+% compare SVD vs Det in terms of computational cost. Just do SVD for all
+% grainss
+% two issues, SVD and indexing for dislocation density (use orthogonal
+% procrustes)
+% eigen values for deformation matrix may be complex (represents
+% non-coaxiality --> separatrix, Cees Passchier). Here, our singular values
+% are always real?. All real matrices will have real eigenvalues?
+% also added random stream
+% overdispersed: if you say there is an extra source of error, then
+% estimate the extra source and remove, do you still have right location of
+% symmetry axes. Yes, then only issue is overdispersion. So what could be
+% causing overdispersion with D-rex case. 
+% focus on overdispersion and recovering symmetry axes today.
 
 end
 

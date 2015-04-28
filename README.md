@@ -22,7 +22,7 @@ No installation is necessary.
 
 Usage
 ------------------ 
-The code does not require input arguments and can be run by calling the program the MATLAB command window or pushing the green "Run" button. User-adjustable parameters can be found in Drex.m. See the Drex.m file for additional information.
+The code does not require input arguments and can be run by calling the program in the MATLAB command window or pushing the green "Run" button. User-adjustable parameters can be found in Drex.m. See the Drex.m file for additional information.
 
 
 The Latest Version

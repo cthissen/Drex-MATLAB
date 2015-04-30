@@ -76,7 +76,7 @@ ColorOpts.nTics = 3;
 ColorOpts.centerVal = [];
 ColorOpts.factor = 0.8;
 
-optArgs = {1,'lower',151,ColorOpts};
+optArgs = {1,'upper',151,ColorOpts};
 nArgsIn = find(~cellfun(@isempty,varargin));
 
 

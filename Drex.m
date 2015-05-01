@@ -438,7 +438,7 @@ cumWeight = cumsum(volFracSorted);
 
 %... generate random indices
 % check for qrandstream (part of statistics toolbox)
-if exist('qrandstream','builtin');
+if exist('qrandstream','file') == 2;
     q = qrandstream('halton', 3, 'Skip',1e3, 'Leap',1e2);
     idxGrain = qrand(q,Grain.nGrains);
 else
@@ -574,7 +574,7 @@ validateattributes(Grain.nGrains,{'numeric'},{'scalar'});
 
 % updated to use quasi random stream.
 nGrains = Grain.nGrains;
-if exist('qrandstream','builtin')
+if exist('qrandstream','file') == 2
     q = qrandstream('halton', 3, 'Skip',1e4, 'Leap',1e3);
     randVals = qrand(q,nGrains);
 else

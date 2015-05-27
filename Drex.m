@@ -106,16 +106,16 @@ addpath('functions/');
 Grain.nGrains   = 500;              % number of olivine crystals
 Grain.pctOli    = 1;                % fraction of aggregate that is olivine
 Grain.tau       = [1,2,3,1e60];     % CRSS (relative) for slip systems
-Grain.mob       = 50;              % grain mobility parameter (125 is recommended by Kaminski et al 2004)
-Grain.chi       = 0.2;                % 0.3 threshold volume fraction for activation of grain boundary sliding (Kaminski et al, 2004)
-Grain.lambda    = 5;                % 5 nucleation parameter
+Grain.mob       = 0;              % grain mobility parameter (125 is recommended by Kaminski et al 2004)
+Grain.chi       = 0;                % 0.3 threshold volume fraction for activation of grain boundary sliding (Kaminski et al, 2004)
+Grain.lambda    = 0;                % 5 nucleation parameter
 Grain.stressExp = 3.5;              % stress exponent
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Flow input parameters
 %%%%%%%%%%%%%%%%%%%%%%%%
 Flow.tSteps = 100;
-Flow.deformationSymmetry = 'simpleShear';
+Flow.deformationSymmetry = 'axisymmetricExtension';
 
 % Various olivine "types" may simulated by changing the Grain.tau variable
 % to the appropriate relative critical resolved shear stress:
@@ -164,7 +164,7 @@ switch Flow.deformationSymmetry
                     0         0, sqrt(Sy)];
               
     case 'axisymmetricExtension' % Wk=0        
-        Sz = 1/0.42;
+        Sz = (1/0.42)^2;
         Sx = sqrt(1/Sz);
         Sy = Sx;
         

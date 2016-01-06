@@ -139,7 +139,7 @@ Flow.deformationSymmetry = 'axisymmetricExtension';
 %% Check Grain and Flow parameters
 validateattributes(Grain,          {'struct'},{});
 validateattributes(Grain.nGrains,  {'numeric'},{'scalar','integer','nonnegative'});
-validateattributes(Grain.pctOli,   {'numeric'},{'scalar','>=',0,'<=',1});
+validateattributes(Grain.pctOli,   {'numeric'},{'scalar','>=',1,'<=',1}); % must=1. No other minerals have been implemented yet
 validateattributes(Grain.tau,      {'numeric'},{'nrows',1,'ncols',4});
 validateattributes(Grain.mob,      {'numeric'},{'scalar','nonnegative'});
 validateattributes(Grain.chi,      {'numeric'},{'scalar','>=',0,'<=',1});

@@ -506,6 +506,9 @@ validateattributes(Flow.deformationSymmetry,{'char'},{});
 %% Begin subfunction
 
 % volume weighted
+if exist('Output') ~= 7
+    mkdir('Output');
+end
 fileName = ['Output/drex_',Flow.deformationSymmetry,'_volweighted.txt'];
 fid = fopen(fileName);
 angles = textscan(fid,'%f %f %f %*[^\r\n]','HeaderLines',0);
